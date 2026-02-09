@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomic Nervous System: Comprehensive Quiz</title>
+    <style>
+        :root {
+            --primary: #2d3748;
+            --secondary: #4a5568;
+            --accent: #718096;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --danger: #e53e3e;
+            --sympathetic-color: #e53e3e;
+            --parasympathetic-color: #4299e1;
+            --cranial-color: #9f7aea;
+            --sacral-color: #48bb78;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(45, 55, 72, 0.9), rgba(74, 85, 104, 0.9)), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+            color: #2d3748;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary), var(--sympathetic-color));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nervous-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sympathetic-color), var(--parasympathetic-color));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-top: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .info-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .quiz-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .questions-section {
+            flex: 2;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .answer-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            display: none;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .answer-section.visible {
+            display: block;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 5px;
+        }
+        
+        .question-number::before {
+            content: "Q";
+            background: linear-gradient(135deg, var(--primary), var(--sympathetic-color));
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .question-text {
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            background: linear-gradient(to right, var(--light), #f7fafc);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sympathetic-note {
+            background: linear-gradient(to right, #fff5f5, #fed7d7);
+            border-left: 5px solid var(--sympathetic-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .parasympathetic-note {
+            background: linear-gradient(to right, #ebf8ff, #bee3f8);
+            border-left: 5px solid var(--parasympathetic-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .cranial-note {
+            background: linear-gradient(to right, #faf5ff, #e9d8fd);
+            border-left: 5px solid var(--cranial-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sacral-note {
+            background: linear-gradient(to right, #f0fff4, #c6f6d5);
+            border-left: 5px solid var(--sacral-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .peripheral-note {
+            background: linear-gradient(to right, #fffaf0, #feebc8);
+            border-left: 5px solid var(--warning);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-style: italic;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 18px 25px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.08rem;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: attr(data-letter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #edf2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark);
+            border-right: 2px solid #cbd5e0;
+        }
+        
+        .option-content {
+            margin-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: #f7fafc;
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option.selected {
+            background-color: #e6fffa;
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
+        }
+        
+        .option.correct {
+            background-color: #f0fff4;
+            border-color: var(--success);
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.15);
+        }
+        
+        .option.incorrect {
+            background-color: #fff5f5;
+            border-color: var(--danger);
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.15);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        
+        button {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.15rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--sympathetic-color), var(--primary));
+            color: white;
+            flex: 2;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #ffffff, #f7fafc);
+            color: var(--dark);
+            flex: 1;
+            border: 2px solid #cbd5e0;
+        }
+        
+        .reset-btn:hover {
+            background: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results-section {
+            margin-top: 50px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            display: none;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .score-display {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--sympathetic-color));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .score-value {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 25px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            flex: 1;
+            transition: transform 0.3s;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .passed .stat-value {
+            color: var(--success);
+        }
+        
+        .failed .stat-value {
+            color: var(--danger);
+        }
+        
+        .attempted .stat-value {
+            color: var(--secondary);
+        }
+        
+        .answer-bank {
+            margin-top: 50px;
+        }
+        
+        .answer-item {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .answer-correct {
+            color: var(--success);
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 10px;
+            background: #f0fff4;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .answer-incorrect {
+            color: var(--danger);
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 10px;
+            background: #fff5f5;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sympathetic-color), var(--primary));
+            transition: width 0.5s;
+        }
+        
+        @media (max-width: 1200px) {
+            .quiz-container {
+                flex-direction: column;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .score-value {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .score-value {
+                font-size: 2.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+            
+            .option {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="nervous-icon">🧠</div>
+            <h1>Autonomic Nervous System: Comprehensive Quiz</h1>
+            <p class="subtitle">70 Questions Covering PNS, Cranial Nerves, Sacral Nerves (S2-4), Sympathetic & Parasympathetic Divisions</p>
+            <div class="difficulty-badge">ADVANCED NEUROANATOMY & PHYSIOLOGY</div>
+        </header>
+        
+        <div class="quiz-info">
+            <div class="info-item">
+                <div class="info-value">70</div>
+                <div class="info-label">Questions</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">Sympathetic</div>
+                <div class="info-label">Division</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">Parasympathetic</div>
+                <div class="info-label">Division</div>
+            </div>
+            <div class="info-item">
+                <div class="info-value">Cranial & Sacral</div>
+                <div class="info-label">Outflow</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress-bar" style="width: 0%"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="questions-section" id="questions-section">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            
+            <div class="answer-section" id="answer-section">
+                <h2>Comprehensive Answer Bank</h2>
+                <p>Detailed explanations based on Gray's Anatomy and Netter's Neuroscience</p>
+                <div id="answer-bank">
+                    <!-- Answers will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="reset-btn" id="reset-btn">Reset Quiz</button>
+            <button class="submit-btn" id="submit-btn">Submit Answers</button>
+        </div>
+        
+        <div class="results-section" id="results-section">
+            <div class="score-display">
+                <h2>Your Autonomic Nervous System Knowledge Score</h2>
+                <div class="score-value" id="score-value">0/70</div>
+                <p>Comprehensive Coverage of Sympathetic, Parasympathetic, Cranial & Sacral Outflow</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box attempted">
+                    <div class="stat-value" id="attempted-value">0</div>
+                    <div class="stat-label">Questions Attempted</div>
+                </div>
+                <div class="stat-box passed">
+                    <div class="stat-value" id="passed-value">0</div>
+                    <div class="stat-label">Questions Passed</div>
+                </div>
+                <div class="stat-box failed">
+                    <div class="stat-value" id="failed-value">0</div>
+                    <div class="stat-label">Questions Failed</div>
+                </div>
+            </div>
+            
+            <div class="answer-bank">
+                <h3>Detailed Explanations</h3>
+                <div id="detailed-answers">
+                    <!-- Detailed answers will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 70 Comprehensive questions on Autonomic Nervous System
+        const quizData = [
+            // Questions 1-15: Peripheral Nervous System Overview
+            {
+                question: "The autonomic nervous system is part of the:",
+                options: [
+                    "Central nervous system",
+                    "Peripheral nervous system",
+                    "Both central and peripheral",
+                    "Enteric nervous system only"
+                ],
+                correct: 1,
+                explanation: "The ANS is a division of the peripheral nervous system (PNS) that controls involuntary functions, distinct from the somatic nervous system which controls voluntary movements."
+            },
+            {
+                question: "The ANS controls all EXCEPT:",
+                options: [
+                    "Heart rate",
+                    "Digestive secretions",
+                    "Skeletal muscle contraction",
+                    "Pupillary diameter"
+                ],
+                correct: 2,
+                explanation: "Skeletal muscle contraction is controlled by the somatic nervous system (voluntary). The ANS controls cardiac muscle, smooth muscle, and glands."
+            },
+            {
+                question: "The two-neuron chain in autonomic pathways consists of:",
+                options: [
+                    "Upper and lower motor neurons",
+                    "Preganglionic and postganglionic neurons",
+                    "Primary and secondary neurons",
+                    "Afferent and efferent neurons"
+                ],
+                correct: 1,
+                explanation: "ANS uses a two-neuron chain: preganglionic neuron (cell body in CNS) → autonomic ganglion → postganglionic neuron → effector organ."
+            },
+            {
+                question: "Autonomic ganglia contain:",
+                options: [
+                    "Only sensory neuron cell bodies",
+                    "Only motor neuron cell bodies",
+                    "Synapses between pre- and postganglionic neurons",
+                    "Only interneurons"
+                ],
+                correct: 2,
+                explanation: "Autonomic ganglia contain synapses between preganglionic axons and postganglionic neuron cell bodies, acting as relay stations outside the CNS."
+            },
+            {
+                question: "Visceral afferents carry information:",
+                options: [
+                    "From CNS to visceral organs",
+                    "From visceral organs to CNS",
+                    "Between autonomic ganglia",
+                    "Within enteric nervous system only"
+                ],
+                correct: 1,
+                explanation: "Visceral afferents (sensory fibers) carry information from internal organs to CNS, often traveling with autonomic efferents but not part of ANS proper."
+            },
+            {
+                question: "The enteric nervous system is sometimes called:",
+                options: [
+                    "The brain of the gut",
+                    "Spinal cord of abdomen",
+                    "Peripheral brain",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "The ENS is an extensive network of neurons in GI tract walls, capable of independent function, often called the 'second brain' or 'brain of the gut.'"
+            },
+            {
+                question: "Which neurotransmitter is NOT primarily associated with ANS?",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine",
+                    "Dopamine",
+                    "Glutamate"
+                ],
+                correct: 3,
+                correct: 3,
+                explanation: "Glutamate is the main excitatory CNS neurotransmitter. ANS primarily uses ACh (all preganglionic, parasympathetic postganglionic) and NE (most sympathetic postganglionic)."
+            },
+            {
+                question: "The autonomic nervous system develops from:",
+                options: [
+                    "Neural crest cells",
+                    "Somites",
+                    "Mesoderm only",
+                    "Ectoderm only"
+                ],
+                correct: 0,
+                explanation: "ANS neurons and ganglia develop from neural crest cells that migrate from the neural tube, differentiating into autonomic structures."
+            },
+            {
+                question: "Visceral pain is often described as:",
+                options: [
+                    "Sharp and localized",
+                    "Dull, diffuse, and referred",
+                    "Precise and specific",
+                    "Similar to cutaneous pain"
+                ],
+                correct: 1,
+                explanation: "Visceral pain is dull, poorly localized, often referred to somatic structures due to convergence of visceral and somatic afferents in spinal cord."
+            },
+            {
+                question: "Autonomic dysreflexia occurs after:",
+                options: [
+                    "Spinal cord injury above T6",
+                    "Cerebral stroke",
+                    "Peripheral nerve injury",
+                    "Any autonomic imbalance"
+                ],
+                correct: 0,
+                explanation: "Autonomic dysreflexia: dangerous hypertensive crisis in spinal cord injuries above T6 due to unopposed sympathetic outflow below lesion triggered by noxious stimuli."
+            },
+            {
+                question: "The autonomic nervous system regulates:",
+                options: [
+                    "Voluntary movements",
+                    "Homeostasis and visceral functions",
+                    "Conscious perception",
+                    "Higher cognitive functions"
+                ],
+                correct: 1,
+                explanation: "ANS maintains homeostasis by regulating heart rate, blood pressure, temperature, digestion, respiration, and other involuntary functions."
+            },
+            {
+                question: "Which is NOT a characteristic of autonomic reflexes?",
+                options: [
+                    "Often polysynaptic",
+                    "Can be modulated by higher centers",
+                    "Always conscious",
+                    "Often involve visceral afferents"
+                ],
+                correct: 2,
+                explanation: "Autonomic reflexes are usually unconscious and automatic, though some (like bladder control) can become partially voluntary with training."
+            },
+            {
+                question: "The autonomic nervous system works closely with the:",
+                options: [
+                    "Endocrine system",
+                    "Immune system",
+                    "Both A and B",
+                    "Musculoskeletal system"
+                ],
+                correct: 2,
+                explanation: "ANS coordinates with endocrine system (e.g., adrenal medulla) and modulates immune function through neuroimmune interactions."
+            },
+            {
+                question: "Visceral sensory information reaches consciousness:",
+                options: [
+                    "Always",
+                    "Never",
+                    "Only under pathological conditions",
+                    "Only for some sensations like fullness"
+                ],
+                correct: 3,
+                explanation: "Most visceral sensation is subconscious. Conscious sensations include hunger, fullness, nausea, visceral pain, and some sexual sensations."
+            },
+            {
+                question: "The autonomic nervous system is controlled by:",
+                options: [
+                    "Hypothalamus primarily",
+                    "Brainstem centers",
+                    "Spinal cord",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "ANS control: hypothalamus (master regulator), brainstem (cardiorespiratory centers), spinal cord (simple reflexes), limbic system (emotional responses)."
+            },
+
+            // Questions 16-35: Cranial Nerves with Autonomic Functions
+            {
+                question: "Which cranial nerve carries parasympathetic fibers to the heart?",
+                options: [
+                    "CN III (Oculomotor)",
+                    "CN VII (Facial)",
+                    "CN IX (Glossopharyngeal)",
+                    "CN X (Vagus)"
+                ],
+                correct: 3,
+                explanation: "CN X (Vagus) provides parasympathetic innervation to heart (decreases HR), lungs, and most abdominal viscera down to splenic flexure."
+            },
+            {
+                question: "The oculomotor nerve (CN III) carries parasympathetic fibers to:",
+                options: [
+                    "Lacrimal gland",
+                    "Parotid gland",
+                    "Ciliary muscle and sphincter pupillae",
+                    "Submandibular and sublingual glands"
+                ],
+                correct: 2,
+                explanation: "CN III parasympathetic fibers (Edinger-Westphal nucleus) → ciliary ganglion → ciliary muscle (accommodation) and sphincter pupillae (pupillary constriction)."
+            },
+            {
+                question: "The facial nerve (CN VII) provides parasympathetic innervation to:",
+                options: [
+                    "Lacrimal, submandibular, sublingual glands",
+                    "Parotid gland only",
+                    "All salivary glands",
+                    "Mucous glands of nasal cavity"
+                ],
+                correct: 0,
+                explanation: "CN VII: superior salivatory nucleus → pterygopalatine ganglion (lacrimal, nasal/palatal glands) and submandibular ganglion (submandibular, sublingual glands)."
+            },
+            {
+                question: "The glossopharyngeal nerve (CN IX) carries parasympathetic fibers to:",
+                options: [
+                    "Lacrimal gland",
+                    "Parotid gland",
+                    "Submandibular gland",
+                    "Ciliary muscle"
+                ],
+                correct: 1,
+                explanation: "CN IX: inferior salivatory nucleus → otic ganglion → parotid gland (via auriculotemporal nerve) for saliva production."
+            },
+            {
+                question: "The vagus nerve (CN X) provides parasympathetic innervation to:",
+                options: [
+                    "Head and neck only",
+                    "Thoracic and abdominal viscera",
+                    "Pelvic organs",
+                    "All of the above"
+                ],
+                correct: 1,
+                explanation: "Vagus nerve: dorsal motor nucleus → thoracic/abdominal viscera to splenic flexure (heart, lungs, GI tract, liver, pancreas, etc.)."
+            },
+            {
+                question: "Which cranial nerve has NO autonomic component?",
+                options: [
+                    "CN I (Olfactory)",
+                    "CN II (Optic)",
+                    "CN VIII (Vestibulocochlear)",
+                    "All of the above"
+                ],
+                correct: 3,
+                correct: 3,
+                explanation: "CN I, II, and VIII are purely sensory with no autonomic fibers. Autonomic fibers are in CN III, VII, IX, X."
+            },
+            {
+                question: "The ciliary ganglion receives preganglionic fibers from:",
+                options: [
+                    "CN III",
+                    "CN VII",
+                    "CN IX",
+                    "CN X"
+                ],
+                correct: 0,
+                explanation: "Ciliary ganglion: receives CN III parasympathetic fibers, located behind eye, supplies ciliary muscle and iris sphincter."
+            },
+            {
+                question: "The pterygopalatine ganglion receives fibers from:",
+                options: [
+                    "CN III",
+                    "CN VII",
+                    "CN IX",
+                    "CN X"
+                ],
+                correct: 1,
+                explanation: "Pterygopalatine (sphenopalatine) ganglion: receives CN VII fibers, supplies lacrimal gland and glands of nasal cavity/palate."
+            },
+            {
+                question: "The otic ganglion is associated with:",
+                options: [
+                    "CN V (Trigeminal)",
+                    "CN VII (Facial)",
+                    "CN IX (Glossopharyngeal)",
+                    "CN X (Vagus)"
+                ],
+                correct: 2,
+                explanation: "Otic ganglion: receives CN IX fibers, located near foramen ovale, supplies parotid gland via auriculotemporal nerve."
+            },
+            {
+                question: "The submandibular ganglion receives fibers from:",
+                options: [
+                    "CN V via chorda tympani",
+                    "CN VII via chorda tympani",
+                    "CN IX",
+                    "CN X"
+                ],
+                correct: 1,
+                explanation: "Submandibular ganglion: receives CN VII fibers via chorda tympani, supplies submandibular and sublingual salivary glands."
+            },
+            {
+                question: "Pupillary light reflex involves which cranial nerve for the afferent limb?",
+                options: [
+                    "CN II (Optic)",
+                    "CN III (Oculomotor)",
+                    "CN V (Trigeminal)",
+                    "CN VII (Facial)"
+                ],
+                correct: 0,
+                explanation: "Pupillary light reflex: afferent (CN II) → pretectal area → Edinger-Westphal nuclei → efferent (CN III parasympathetic) → ciliary ganglion → sphincter pupillae."
+            },
+            {
+                question: "The corneal reflex involves autonomic component via:",
+                options: [
+                    "CN V sensory, CN VII motor to orbicularis oculi",
+                    "CN II sensory, CN III motor",
+                    "CN V sensory, CN III parasympathetic to lacrimation",
+                    "No autonomic component"
+                ],
+                correct: 2,
+                explanation: "Corneal reflex: CN V sensory → spinal trigeminal nucleus → reticular formation → CN VII (motor to orbicularis oculi) and parasympathetic (lacrimation)."
+            },
+            {
+                question: "The gag reflex involves which cranial nerve for parasympathetic secretion?",
+                options: [
+                    "CN VII",
+                    "CN IX",
+                    "CN X",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Gag reflex: CN IX sensory → nucleus solitarius → nucleus ambiguus → CN IX/X motor to pharynx, plus parasympathetic secretion via CN VII/IX/X."
+            },
+            {
+                question: "Horner's syndrome involves disruption of sympathetic fibers to head, NOT parasympathetic from:",
+                options: [
+                    "CN III",
+                    "CN VII",
+                    "CN IX",
+                    "CN X"
+                ],
+                correct: 0,
+                explanation: "Horner's syndrome: sympathetic disruption (miosis, ptosis, anhidrosis, apparent enophthalmos). CN III parasympathetic causes miosis but with other different signs."
+            },
+            {
+                question: "The carotid sinus reflex involves:",
+                options: [
+                    "CN IX afferent, CN X efferent",
+                    "CN X afferent and efferent",
+                    "CN V afferent, CN VII efferent",
+                    "CN II afferent, CN III efferent"
+                ],
+                correct: 0,
+                explanation: "Carotid sinus reflex (baroreceptor): CN IX afferent from carotid sinus → nucleus solitarius → dorsal vagal nucleus → CN X efferent to heart (slows HR)."
+            },
+            {
+                question: "Tear production (lacrimation) involves:",
+                options: [
+                    "CN V sensory, CN VII parasympathetic",
+                    "CN II sensory, CN III parasympathetic",
+                    "CN IX sensory, CN X parasympathetic",
+                    "CN VII sensory, CN IX parasympathetic"
+                ],
+                correct: 0,
+                explanation: "Lacrimation: CN V sensory (emotional or irritant) → superior salivatory nucleus → CN VII → pterygopalatine ganglion → lacrimal gland."
+            },
+            {
+                question: "Salivation to acidic foods involves:",
+                options: [
+                    "CN V, VII, IX",
+                    "CN II, III, IV",
+                    "CN VIII, IX, X",
+                    "CN X, XI, XII"
+                ],
+                correct: 0,
+                explanation: "Salivation: taste (CN VII anterior 2/3, CN IX posterior 1/3) → nucleus solitarius → superior/inferior salivatory nuclei → CN VII/IX parasympathetic → salivary glands."
+            },
+            {
+                question: "The cranial nerve that has the widest distribution of parasympathetic fibers is:",
+                options: [
+                    "CN III",
+                    "CN VII",
+                    "CN IX",
+                    "CN X"
+                ],
+                correct: 3,
+                explanation: "CN X (vagus) has the most extensive parasympathetic distribution: heart, lungs, GI tract to splenic flexure, liver, pancreas, etc."
+            },
+            {
+                question: "Which cranial nerve ganglia contain both sensory and autonomic components?",
+                options: [
+                    "Trigeminal (semilunar) ganglion",
+                    "Geniculate ganglion (CN VII)",
+                    "Superior/inferior ganglia of CN IX/X",
+                    "All of the above"
+                ],
+                correct: 3,
+                correct: 3,
+                explanation: "Cranial nerve ganglia: sensory ganglia contain cell bodies of somatic/visceral afferents, separate from autonomic ganglia containing postganglionic neurons."
+            },
+            {
+                question: "The accommodation reflex involves:",
+                options: [
+                    "CN II afferent, CN III efferent",
+                    "CN V afferent, CN VII efferent",
+                    "CN VIII afferent, CN III efferent",
+                    "CN II afferent, CN V efferent"
+                ],
+                correct: 0,
+                explanation: "Accommodation reflex: CN II (visual input) → visual cortex → pretectal area → Edinger-Westphal nucleus → CN III → ciliary ganglion → ciliary muscle."
+            },
+
+            // Questions 36-45: Sacral Nerves (S2-4) and Pelvic Splanchnics
+            {
+                question: "The sacral parasympathetic outflow originates from spinal segments:",
+                options: [
+                    "T1-L2",
+                    "S1-S3",
+                    "S2-S4",
+                    "L5-S2"
+                ],
+                correct: 2,
+                explanation: "Sacral parasympathetic outflow: intermediolateral cell column of S2-S4 spinal cord → pelvic splanchnic nerves → pelvic ganglia → pelvic/colorectal organs."
+            },
+            {
+                question: "Pelvic splanchnic nerves carry:",
+                options: [
+                    "Sympathetic fibers only",
+                    "Parasympathetic fibers only",
+                    "Both sympathetic and parasympathetic",
+                    "Somatic motor fibers"
+                ],
+                correct: 1,
+                explanation: "Pelvic splanchnic nerves are purely parasympathetic, arising from S2-S4 ventral rami, distinct from sacral sympathetic trunks."
+            },
+            {
+                question: "The sacral parasympathetic outflow supplies:",
+                options: [
+                    "Lower GI tract from splenic flexure to rectum",
+                    "Urinary bladder and reproductive organs",
+                    "Distal colon and rectum",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Sacral parasympathetic (S2-S4): descending/sigmoid colon, rectum, bladder, reproductive organs, plus some blood vessels of external genitalia."
+            },
+            {
+                question: "The inferior hypogastric plexus receives contributions from:",
+                options: [
+                    "Pelvic splanchnic nerves (parasympathetic)",
+                    "Sacral sympathetic trunks",
+                    "Hypogastric nerves (sympathetic)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Inferior hypogastric plexus: receives sympathetic (hypogastric nerves), parasympathetic (pelvic splanchnics), and visceral afferents, distributes to pelvic organs."
+            },
+            {
+                question: "The sacral sympathetic trunks contain:",
+                options: [
+                    "Preganglionic sympathetic neurons",
+                    "Postganglionic sympathetic neurons",
+                    "Parasympathetic neurons",
+                    "Somatic motor neurons"
+                ],
+                correct: 1,
+                explanation: "Sacral sympathetic trunks contain sympathetic ganglia with postganglionic neurons (preganglionics arise from T1-L2, descend in sympathetic chain)."
+            },
+            {
+                question: "Micturition reflex involves sacral parasympathetic activation from:",
+                options: [
+                    "S1-S3",
+                    "S2-S4",
+                    "L5-S2",
+                    "T12-L2"
+                ],
+                correct: 1,
+                explanation: "Micturition: bladder afferents → sacral cord (S2-S4) → pelvic splanchnics → detrusor contraction and internal sphincter relaxation."
+            },
+            {
+                question: "The nervi erigentes are another name for:",
+                options: [
+                    "Pelvic splanchnic nerves",
+                    "Hypogastric nerves",
+                    "Sacral sympathetic trunks",
+                    "Pudendal nerves"
+                ],
+                correct: 0,
+                explanation: "Nervi erigentes = pelvic splanchnic nerves (S2-S4 parasympathetic), crucial for erection (vasodilation of penile/clitoral arteries)."
+            },
+            {
+                question: "Sacral parasympathetic fibers synapse in:",
+                options: [
+                    "Sympathetic chain ganglia",
+                    "Pelvic ganglia near target organs",
+                    "Prevertebral ganglia",
+                    "Dorsal root ganglia"
+                ],
+                correct: 1,
+                explanation: "Sacral parasympathetic fibers synapse in terminal ganglia located within or near target organs in pelvis (similar to cranial parasympathetic)."
+            },
+            {
+                question: "The defecation reflex involves sacral parasympathetic outflow to:",
+                options: [
+                    "Internal anal sphincter (relaxation)",
+                    "External anal sphincter (voluntary control)",
+                    "Descending/sigmoid colon peristalsis",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Defecation: rectal distension → sacral cord (S2-S4) → pelvic splanchnics → increased colonic motility, internal sphincter relaxation. External sphincter via pudendal nerve (somatic)."
+            },
+            {
+                question: "Which is NOT supplied by sacral parasympathetic outflow?",
+                options: [
+                    "Descending colon",
+                    "Kidneys",
+                    "Urinary bladder",
+                    "Prostate gland"
+                ],
+                correct: 1,
+                explanation: "Kidneys receive sympathetic (T10-L1) and parasympathetic (vagus) innervation, not sacral parasympathetic. Sacral outflow: pelvic organs and distal colon."
+            },
+
+            // Questions 46-70: Sympathetic and Parasympathetic Systems
+            {
+                question: "Sympathetic preganglionic neurons originate in:",
+                options: [
+                    "Lateral horn of T1-L2/L3",
+                    "Lateral horn of S2-S4",
+                    "Brainstem nuclei",
+                    "All spinal cord levels"
+                ],
+                correct: 0,
+                explanation: "Sympathetic preganglionics: intermediolateral cell column (lateral horn) of spinal cord segments T1-L2/L3 (thoracolumbar outflow)."
+            },
+            {
+                question: "Parasympathetic preganglionic neurons originate in:",
+                options: [
+                    "Brainstem nuclei and S2-S4",
+                    "T1-L2 only",
+                    "All spinal cord levels",
+                    "Cerebral cortex"
+                ],
+                correct: 0,
+                explanation: "Parasympathetic preganglionics: brainstem nuclei (CN III, VII, IX, X) and sacral spinal cord S2-S4 (craniosacral outflow)."
+            },
+            {
+                question: "Sympathetic ganglia include all EXCEPT:",
+                options: [
+                    "Paravertebral (chain) ganglia",
+                    "Prevertebral (collateral) ganglia",
+                    "Intramural ganglia",
+                    "Celiac, superior mesenteric ganglia"
+                ],
+                correct: 2,
+                correct: 2,
+                explanation: "Intramural ganglia are parasympathetic (within organ walls). Sympathetic: paravertebral (22-23 pairs along spine) and prevertebral (celiac, superior/inferior mesenteric)."
+            },
+            {
+                question: "The sympathetic chain extends from:",
+                options: [
+                    "Cervical to sacral region",
+                    "Thoracic to lumbar only",
+                    "Base of skull to coccyx",
+                    "C1 to S1 only"
+                ],
+                correct: 2,
+                explanation: "Sympathetic trunks extend from base of skull (superior cervical ganglion) to coccyx (ganglion impar), with 3 cervical, 11-12 thoracic, 4 lumbar, 4-5 sacral ganglia."
+            },
+            {
+                question: "White rami communicantes contain:",
+                options: [
+                    "Myelinated preganglionic sympathetic fibers",
+                    "Unmyelinated postganglionic sympathetic fibers",
+                    "Parasympathetic fibers",
+                    "Sensory fibers only"
+                ],
+                correct: 0,
+                explanation: "White rami: myelinated preganglionic sympathetic fibers from T1-L2 to sympathetic trunk. Gray rami: unmyelinated postganglionics from trunk to spinal nerves at all levels."
+            },
+            {
+                question: "The superior cervical ganglion provides sympathetic innervation to:",
+                options: [
+                    "Head and neck",
+                    "Upper limb",
+                    "Heart",
+                    "Abdominal viscera"
+                ],
+                correct: 0,
+                explanation: "Superior cervical ganglion (largest): postganglionic fibers to head/neck (pupil dilator, sweat glands, blood vessels, Müller's muscle)."
+            },
+            {
+                question: "The stellate ganglion is formed by fusion of:",
+                options: [
+                    "C7, C8, T1 ganglia",
+                    "T1 and T2 ganglia",
+                    "Inferior cervical and first thoracic ganglia",
+                    "Middle and inferior cervical ganglia"
+                ],
+                correct: 2,
+                explanation: "Stellate (cervicothoracic) ganglion: fusion of inferior cervical and first thoracic ganglia, supplies upper limb, heart, lungs."
+            },
+            {
+                question: "The celiac ganglion receives preganglionic fibers via:",
+                options: [
+                    "Greater splanchnic nerve (T5-T9)",
+                    "Lesser splanchnic nerve (T10-T11)",
+                    "Least splanchnic nerve (T12)",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "Celiac ganglion: receives greater splanchnic (T5-T9), supplies foregut (stomach, liver, pancreas, spleen, proximal duodenum)."
+            },
+            {
+                question: "The adrenal medulla is innervated by:",
+                options: [
+                    "Preganglionic sympathetic fibers directly",
+                    "Postganglionic sympathetic fibers",
+                    "Parasympathetic fibers",
+                    "No autonomic innervation"
+                ],
+                correct: 0,
+                explanation: "Adrenal medulla: specialized sympathetic ganglion, receives preganglionic fibers directly (no postganglionic neuron), secretes epinephrine/norepinephrine into blood."
+            },
+            {
+                question: "Sympathetic activation generally causes:",
+                options: [
+                    "Pupillary constriction",
+                    "Bronchoconstriction",
+                    "Increased heart rate",
+                    "Increased digestive secretions"
+                ],
+                correct: 2,
+                explanation: "Sympathetic: 'fight or flight' - increased HR, bronchodilation, vasoconstriction in skin/viscera, pupillary dilation, decreased GI motility."
+            },
+            {
+                question: "Parasympathetic activation generally causes:",
+                options: [
+                    "Pupillary dilation",
+                    "Bronchodilation",
+                    "Increased digestive activity",
+                    "Increased heart rate"
+                ],
+                correct: 2,
+                explanation: "Parasympathetic: 'rest and digest' - decreased HR, bronchoconstriction, increased GI motility/secretion, pupillary constriction, accommodation."
+            },
+            {
+                question: "Dual innervation refers to:",
+                options: [
+                    "Both autonomic divisions innervating same organ",
+                    "Both sensory and motor innervation",
+                    "Both CNS and PNS control",
+                    "Both voluntary and involuntary control"
+                ],
+                correct: 0,
+                explanation: "Many organs receive dual innervation: sympathetic and parasympathetic often have antagonistic, complementary, or cooperative effects."
+            },
+            {
+                question: "Sympathetic tone refers to:",
+                options: [
+                    "Baseline sympathetic activity at rest",
+                    "Maximum sympathetic activation",
+                    "Parasympathetic inhibition",
+                    "Voluntary control of autonomic functions"
+                ],
+                correct: 0,
+                explanation: "Sympathetic tone: continuous low-level sympathetic activity maintaining vascular tone. Loss causes vasodilation and hypotension."
+            },
+            {
+                question: "Parasympathetic tone is particularly important for:",
+                options: [
+                    "Maintaining heart rate",
+                    "Regulating blood pressure",
+                    "Controlling GI motility",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Parasympathetic tone: maintains resting HR (vagal tone), regulates GI activity, contributes to cardiovascular homeostasis."
+            },
+            {
+                question: "Mass discharge of sympathetic system occurs during:",
+                options: [
+                    "Sleep",
+                    "Digestion",
+                    "Extreme stress or emergency",
+                    "Normal daily activities"
+                ],
+                correct: 2,
+                explanation: "Mass sympathetic discharge: coordinated activation of entire sympathetic system during extreme stress (fight-or-flight), unlike discrete organ responses."
+            },
+            {
+                question: "Cholinergic fibers release:",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine",
+                    "Epinephrine",
+                    "Dopamine"
+                ],
+                correct: 0,
+                explanation: "Cholinergic: release ACh. Includes all preganglionic autonomic, all parasympathetic postganglionic, sympathetic postganglionic to sweat glands, and some blood vessels."
+            },
+            {
+                question: "Adrenergic fibers release:",
+                options: [
+                    "Acetylcholine",
+                    "Norepinephrine (primarily)",
+                    "Epinephrine",
+                    "Dopamine"
+                ],
+                correct: 1,
+                explanation: "Adrenergic: release NE. Includes most sympathetic postganglionic fibers (except sweat glands and some blood vessels which are cholinergic)."
+            },
+            {
+                question: "Muscarinic receptors are found on:",
+                options: [
+                    "All autonomic ganglia",
+                    "All somatic neuromuscular junctions",
+                    "Parasympathetic effector organs and some sympathetic targets",
+                    "Adrenal medulla only"
+                ],
+                correct: 2,
+                correct: 2,
+                explanation: "Muscarinic receptors (M1-M5): parasympathetic effector organs, sweat glands (sympathetic cholinergic), some blood vessels. Nicotinic receptors at ganglia and NMJ."
+            },
+            {
+                question: "Beta-1 adrenergic receptors are primarily located in:",
+                options: [
+                    "Heart (increased rate/force)",
+                    "Bronchial smooth muscle (relaxation)",
+                    "Blood vessels (constriction)",
+                    "GI tract (decreased motility)"
+                ],
+                correct: 0,
+                explanation: "β1 receptors: heart (chronotropy, inotropy), kidney (renin release). β2: lungs (bronchodilation), blood vessels (dilatation), liver (glycogenolysis)."
+            },
+            {
+                question: "Alpha-1 adrenergic receptors cause:",
+                options: [
+                    "Vasodilation",
+                    "Vasoconstriction",
+                    "Bronchodilation",
+                    "Decreased heart rate"
+                ],
+                correct: 1,
+                explanation: "α1 receptors: vascular smooth muscle (vasoconstriction), iris dilator (mydriasis), urinary sphincters (contraction). α2: presynaptic inhibition."
+            },
+            {
+                question: "The autonomic nervous system regulates body temperature through:",
+                options: [
+                    "Sweating (sympathetic cholinergic)",
+                    "Cutaneous vasoconstriction/dilation",
+                    "Piloerection (sympathetic adrenergic)",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Thermoregulation: sweating (sympathetic cholinergic), cutaneous vasomotor control, piloerection (sympathetic adrenergic), shivering (somatic)."
+            },
+            {
+                question: "Raynaud's phenomenon involves:",
+                options: [
+                    "Excessive sympathetic vasoconstriction in digits",
+                    "Parasympathetic overactivity",
+                    "Loss of sympathetic tone",
+                    "Autonomic neuropathy"
+                ],
+                correct: 0,
+                explanation: "Raynaud's: excessive sympathetic-mediated vasoconstriction in fingers/toes in response to cold or stress, causing pallor/cyanosis/pain."
+            },
+            {
+                question: "Autonomic neuropathy in diabetes commonly affects:",
+                options: [
+                    "Cardiovascular reflexes (orthostatic hypotension)",
+                    "GI motility (gastroparesis)",
+                    "Bladder function",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Diabetic autonomic neuropathy: cardiovascular (tachycardia, orthostatic hypotension), GI (gastroparesis, diarrhea), genitourinary (neurogenic bladder), sudomotor (anhidrosis)."
+            },
+            {
+                question: "The enteric nervous system can function independently because it contains:",
+                options: [
+                    "Complete reflex arcs",
+                    "Sensory neurons, interneurons, motor neurons",
+                    "Its own intrinsic pacemaker cells",
+                    "All of the above"
+                ],
+                correct: 3,
+                correct: 3,
+                explanation: "ENS: contains sensory neurons (mechano/chemoreceptors), interneurons, motor neurons (excitatory/inhibitory), and pacemaker cells (interstitial cells of Cajal)."
+            },
+            {
+                question: "The autonomic nervous system plays a role in:",
+                options: [
+                    "Emotional responses (limbic connections)",
+                    "Learning and memory (via arousal)",
+                    "Immune modulation",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "ANS roles: emotional expression (limbic connections), attention/arousal (reticular formation), neuroimmune interactions (spleen innervation), stress responses."
+            }
+        ];
+
+        // Function to shuffle array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionsSection = document.getElementById('questions-section');
+            const answerSection = document.getElementById('answer-section');
+            const answerBank = document.getElementById('answer-bank');
+            const submitBtn = document.getElementById('submit-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsSection = document.getElementById('results-section');
+            const scoreValue = document.getElementById('score-value');
+            const attemptedValue = document.getElementById('attempted-value');
+            const passedValue = document.getElementById('passed-value');
+            const failedValue = document.getElementById('failed-value');
+            const detailedAnswers = document.getElementById('detailed-answers');
+            const progressBar = document.getElementById('progress-bar');
+            
+            let userAnswers = Array(quizData.length).fill(null);
+            
+            // Create question elements with shuffled answer options
+            quizData.forEach((questionData, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question';
+                
+                // Shuffle the options but remember correct answer position
+                const optionsWithIndices = questionData.options.map((option, i) => ({ option, originalIndex: i }));
+                const shuffledOptions = shuffleArray([...optionsWithIndices]);
+                const correctAnswerNewIndex = shuffledOptions.findIndex(item => item.originalIndex === questionData.correct);
+                
+                // Store the new correct index in the question data
+                questionData.shuffledCorrect = correctAnswerNewIndex;
+                
+                // Add category-specific notes
+                let categoryNote = '';
+                if (index < 15) { // Peripheral nervous system overview
+                    categoryNote = `<div class="peripheral-note">Peripheral Nervous System: This question covers ANS organization, ganglia, neurotransmitters, and general principles.</div>`;
+                } else if (index < 35) { // Cranial nerves
+                    categoryNote = `<div class="cranial-note">Cranial Nerves: This question covers cranial parasympathetic outflow (CN III, VII, IX, X) and associated ganglia.</div>`;
+                } else if (index < 45) { // Sacral nerves
+                    categoryNote = `<div class="sacral-note">Sacral Nerves (S2-4): This question covers sacral parasympathetic outflow, pelvic splanchnics, and pelvic organ innervation.</div>`;
+                } else if (index < 55) { // Sympathetic system
+                    categoryNote = `<div class="sympathetic-note">Sympathetic Division: This question covers thoracolumbar outflow, ganglia, pathways, and physiological effects.</div>`;
+                } else { // Parasympathetic and integration
+                    categoryNote = `<div class="parasympathetic-note">Parasympathetic Division & Integration: This question covers craniosacral outflow, receptor types, and autonomic integration.</div>`;
+                }
+                
+                questionElement.innerHTML = `
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">${questionData.question}</div>
+                    ${categoryNote}
+                    <div class="options">
+                        ${shuffledOptions.map((item, optionIndex) => `
+                            <div class="option" data-question="${index}" data-option="${optionIndex}" data-original="${item.originalIndex}" data-letter="${String.fromCharCode(65 + optionIndex)}">
+                                <div class="option-content">${item.option}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                questionsSection.appendChild(questionElement);
+                
+                // Create answer element for answer bank
+                const answerElement = document.createElement('div');
+                answerElement.className = 'answer-item';
+                answerElement.innerHTML = `
+                    <strong>${index + 1}. ${questionData.question}</strong><br>
+                    <span class="answer-correct">Correct: ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}</span>
+                `;
+                answerBank.appendChild(answerElement);
+            });
+            
+            // Update progress bar
+            function updateProgress() {
+                const answered = userAnswers.filter(answer => answer !== null).length;
+                const progress = (answered / quizData.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionIndex = parseInt(this.getAttribute('data-question'));
+                    const optionIndex = parseInt(this.getAttribute('data-option'));
+                    
+                    // Remove selected class from all options in this question
+                    const questionOptions = document.querySelectorAll(`.option[data-question="${questionIndex}"]`);
+                    questionOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Store user's answer
+                    userAnswers[questionIndex] = optionIndex;
+                    
+                    // Update progress
+                    updateProgress();
+                });
+            });
+            
+            // Submit button event listener
+            submitBtn.addEventListener('click', function() {
+                let score = 0;
+                let attempted = 0;
+                let passed = 0;
+                let failed = 0;
+                
+                // Clear previous detailed answers
+                detailedAnswers.innerHTML = '';
+                
+                // Evaluate answers
+                quizData.forEach((questionData, index) => {
+                    const userAnswer = userAnswers[index];
+                    const correctAnswer = questionData.shuffledCorrect;
+                    const questionOptions = document.querySelectorAll(`.option[data-question="${index}"]`);
+                    
+                    if (userAnswer !== null) {
+                        attempted++;
+                        
+                        // Mark correct/incorrect answers
+                        questionOptions.forEach((option, optionIndex) => {
+                            if (optionIndex === correctAnswer) {
+                                option.classList.add('correct');
+                            } else if (optionIndex === userAnswer && userAnswer !== correctAnswer) {
+                                option.classList.add('incorrect');
+                            }
+                        });
+                        
+                        if (userAnswer === correctAnswer) {
+                            score++;
+                            passed++;
+                        } else {
+                            failed++;
+                        }
+                        
+                        // Get the original letter for the user's answer
+                        const userOptionElement = document.querySelector(`.option[data-question="${index}"][data-option="${userAnswer}"]`);
+                        const userOriginalIndex = userOptionElement ? parseInt(userOptionElement.getAttribute('data-original')) : null;
+                        const userAnswerLetter = userOriginalIndex !== null ? String.fromCharCode(65 + userOriginalIndex) : '?';
+                        const userAnswerText = userOptionElement ? userOptionElement.querySelector('.option-content').textContent : 'Not selected';
+                        
+                        // Create detailed answer element
+                        const detailedAnswer = document.createElement('div');
+                        detailedAnswer.className = 'answer-item';
+                        const userAnswerClass = userAnswer === correctAnswer ? 'answer-correct' : 'answer-incorrect';
+                        detailedAnswer.innerHTML = `
+                            <strong>${index + 1}. ${questionData.question}</strong><br>
+                            <span class="${userAnswerClass}">Your answer: ${userAnswerLetter}. ${userAnswerText}</span><br>
+                            <span class="answer-correct">Correct: ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}</span><br>
+                            <div class="peripheral-note">${questionData.explanation}</div>
+                        `;
+                        detailedAnswers.appendChild(detailedAnswer);
+                    } else {
+                        // Create detailed answer for unattempted question
+                        const detailedAnswer = document.createElement('div');
+                        detailedAnswer.className = 'answer-item';
+                        detailedAnswer.innerHTML = `
+                            <strong>${index + 1}. ${questionData.question}</strong><br>
+                            <span class="answer-incorrect">Your answer: Not attempted</span><br>
+                            <span class="answer-correct">Correct: ${String.fromCharCode(65 + questionData.correct)}. ${questionData.options[questionData.correct]}</span><br>
+                            <div class="peripheral-note">${questionData.explanation}</div>
+                        `;
+                        detailedAnswers.appendChild(detailedAnswer);
+                    }
+                });
+                
+                // Update score and stats
+                scoreValue.textContent = `${score}/${quizData.length}`;
+                attemptedValue.textContent = attempted;
+                passedValue.textContent = passed;
+                failedValue.textContent = failed;
+                
+                // Show results section and answer section
+                resultsSection.style.display = 'block';
+                answerSection.classList.add('visible');
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Reset button event listener
+            resetBtn.addEventListener('click', function() {
+                userAnswers = Array(quizData.length).fill(null);
+                
+                // Clear all selections
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide results section and answer section
+                resultsSection.style.display = 'none';
+                answerSection.classList.remove('visible');
+                
+                // Reset progress bar
+                progressBar.style.width = '0%';
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
